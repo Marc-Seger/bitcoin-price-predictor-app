@@ -1,109 +1,111 @@
-# Bitcoin Price Prediction Project
+# 📈 Bitcoin Price Predictor
 
-## Project Overview
-This project is designed to predict Bitcoin's price based on multiple data sources such as market indicators, on-chain data, sentiment analysis, and macroeconomic indicators. The goal is to create a machine learning model capable of forecasting Bitcoin's short-term and long-term price movements with high accuracy. This project uses multiple approaches, including Random Forest and deep learning models like LSTM/GRU, to improve the predictive performance of the model.
+## 🚀 Project Overview
+This project focuses on forecasting Bitcoin prices using machine learning. By combining technical indicators, macroeconomic data, and on-chain metrics, we built a two-model system:
 
-The project leverages historical Bitcoin price data, external market data, on-chain metrics, and sentiment signals to predict Bitcoin's future price. Additionally, we incorporate models to analyze both short-term (1-7 days) and long-term (30 days) predictions.
+- **Random Forest** for short-term predictions (1–7 days)
+- **GRU (Gated Recurrent Unit)** for long-term forecasts (30+ days)
 
-## Table of Contents
-- [Technologies Used](#technologies-used)
-- [Data Sources](#data-sources)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Model Evaluation](#model-evaluation)
-- [Results](#results)
-- [Challenges](#challenges)
-- [Future Work](#future-work)
+The project is implemented in Python and designed to evolve into a user-facing application using Streamlit.
 
-## Technologies Used
-- **Python**: The programming language used for data manipulation, machine learning, and model building.
-- **pandas**: For data cleaning, manipulation, and preprocessing.
-- **scikit-learn**: For machine learning model creation and hyperparameter tuning (Random Forest, GridSearchCV).
-- **TensorFlow/Keras**: For building deep learning models like LSTM and GRU.
-- **Google Colab**: For running the Jupyter notebooks and sharing results.
-- **gspread**: For accessing Google Sheets data (e.g., Bitcoin ETF inflows).
-- **SQLite**: For storing on-chain and sentiment data in a structured format.
-- **Matplotlib**: For data visualization.
-- **Google Drive**: For storing datasets and project files.
+---
 
-## Data Sources
-1. **Bitcoin Price Data**: Collected from Yahoo Finance via the `yfinance` library. Includes open, close, high, low, volume, etc.
-2. **Macroeconomic Indicators**: S&P 500, Nasdaq, Gold, and DXY data were collected for market analysis.
-3. **On-Chain Data**: Includes metrics such as Bitcoin's hash rate, exchange inflows, and active addresses (data fetched from Glassnode).
-4. **Sentiment Data**: 
-   - **Google Trends** data for keywords like "Bitcoin" and "BTC".
-   - **Fear & Greed Index** from CNN and Alternative.me for market sentiment analysis.
-   - **Twitter Sentiment** (previously replaced by Google Trends).
-5. **Bitcoin ETF Inflows/Outflows**: Data sourced from CoinShares or Glassnode, reflecting Bitcoin’s institutional investments.
+## 📂 Repository Structure
+bitcoin-price-predictor-app/
+├── notebooks/
+   ├── 01_data_collection_and_feature_engineering.ipynb
+   ├── 02_data_preprocessing_and_split.ipynb 
+   │── 03_model_training_and_evaluation.ipynb 
+├── models/
+   ├── rf_model_v1.pkl
+   ├── gru_model_v1.keras
+   │── feature_scaler.pkl
+   │── target_scaler.pkl 
+├── data/
+   ├── preprocessed_data/
+   │── raw/ 
+├── results/ 
+├── bitcoin_app.py 
+├── README.md
+├── requirements.txt
 
-## Installation
-1. Clone the repository:
+## 🔧 Technologies Used
+
+| Tool                       | Purpose                                    |
+|----------------------------|--------------------------------------------|
+| **Python, pandas**         | Data wrangling and manipulation            |
+| **scikit-learn**           | Random Forest + preprocessing + evaluation |
+| **TensorFlow / Keras**     | GRU model for long-term forecasting        |
+| **Google Colab**           | Notebook development                       |
+| **Streamlit**              | Front-end interface for predictions (WIP)  |
+| **Google Drive + gspread** | Dataset storage + ETF flow updates         |
+| **SQLite**                 | On-chain and sentiment database            |
+| **Plotly / Matplotlib**    | Visualization                              |
+
+## 📊 Data Sources
+
+- **Bitcoin Prices**: Yahoo Finance (`yfinance`)
+- **Macro Assets**: S&P 500, Nasdaq, Gold, DXY
+- **On-Chain Data**: Hash rate, exchange flows, MVRV, active addresses
+- **Sentiment Data**: 
+  - Google Trends
+  - Fear & Greed Index (Alt.me & CNN)
+- **ETF Flows**: Manually updated from CoinShares via Google Sheets
+
+---
+
+## ▶️ How to Run
+
+1. Clone the repo and install dependencies:
    ```bash
-   git clone https://github.com/your-username/Bitcoin_Price_Prediction_project.git
+   git clone https://github.com/Marc-Seger/bitcoin-price-predictor-app.git
+   cd bitcoin-price-predictor-app
+   pip install -r requirements.txt
 
-pip install -r requirements.txt
+2. Run the notebooks:
+   01_data_collection_and_feature_engineering.ipynb
+   02_data_preprocessing_and_split.ipynb
+   03_model_training_and_evaluation.ipynb
 
-## Usage
-Open the notebook in Google Colab or Jupyter.
-Upload your data to Google Drive if necessary (use the paths as defined in the notebook).
-Run the entire notebook in sequence:
-Data collection and preprocessing
-Feature engineering
-Model training (Random Forest, LSTM, GRU)
-Evaluation and hyperparameter tuning
-Evaluate the models' performance and adjust the features or hyperparameters based on the results.
+3. Launch the app (coming soon):
+   streamlit run bitcoin_app.py
 
-## Model Evaluation
-Random Forest (Short-Term Prediction)
+## ✅ Model Performance (mockup results)
 
-Best Parameters: n_estimators: 500, max_depth: 20, min_samples_split: 5, min_samples_leaf: 4, max_features: 'log2'
+📉 Random Forest (Short-Term)
+R²: 0.71
+MAE: $3,487
+RMSE: $4,388
 
-Performance:
-MAE: 3486.8158
-RMSE: 4388.2210
-R²: 0.7086
+📈 GRU (Long-Term)
+Train R²: 0.99 | Test R²: 0.76
+MAE: 0.0428 (test)
+RMSE: 0.0726 (test)
 
+## 📌 Key Learnings
 
-LSTM (Long-Term Prediction)
+Simulating future features (VWAP, EMA, lagged price) was crucial for long-term predictions.
+Recursive prediction strategy was implemented for horizon-based accuracy.
+Feature selection played a major role in reducing overfitting and improving generalization.
 
-Training Performance:
+## 🧩 Challenges
 
-MAE: 0.0115
-RMSE: 0.0166
-R²: 0.9876
+⚠️ Handling missing and incomplete on-chain data
+🔄 Keeping data up to date for training (manual ETF updates)
+🧠 Balancing short-term volatility with long-term trend recognition
+💻 Time-intensive model tuning (especially for deep learning)
 
-Test Performance:
-MAE: 0.0428
-RMSE: 0.0726
-R²: 0.7592
+## 🛠️ Future Work
 
+Improve long-term GRU model (v2) with better regularization
+Develop a dedicated Streamlit predictor interface
+Add real-time pipeline with automatic retraining
+Integrate advanced macro factors (inflation, interest rates, money supply)
 
-GRU (Long-Term Prediction)
+## 📁 Related Projects
 
-Training Performance:
+Bitcoin & Assets Dashboard
+Power BI Dashboard (Coming Soon)
+Portfolio Website
 
-MAE: 0.0278
-RMSE: 0.0363
-R²: 0.9410
-
-Test Performance:
-MAE: 0.0884
-RMSE: 0.1161
-R²: 0.3842
-
-## Results
-Random Forest outperforms other models in the short-term prediction.
-LSTM shows promising results for long-term predictions, with a good R² score of 0.7592 on the test data.
-GRU also performs well but with a slightly lower R² score on the test data.
-
-## Challenges
-Data Quality: The quality of data (e.g., missing values, inconsistencies) was a key challenge during the feature engineering phase.
-Model Overfitting: Hyperparameter tuning was crucial to reduce overfitting, particularly for the Random Forest model.
-Data Availability: Some sources, like on-chain metrics or Bitcoin ETF inflows, had incomplete data or required API access.
-Hyperparameter Search: Tuning hyperparameters, especially for Random Forest and deep learning models, was computationally expensive and time-consuming.
-
-## Future Work
-Deep Learning: Explore additional deep learning models, including more complex architectures like Time-Series Transformers.
-Continuous Updates: Set up an automated pipeline to continuously fetch updated data and retrain models.
-Advanced Feature Engineering: Integrate more macroeconomic factors such as inflation, interest rates, etc., to improve predictions.
-Real-Time Predictions: Implement a real-time prediction system for Bitcoin price using live market data.
+🧠 Built with passion by Marc Seger – [Linkedin](https://www.linkedin.com/in/marc-seger/) . [GitHub](https://github.com/Marc-Seger)
