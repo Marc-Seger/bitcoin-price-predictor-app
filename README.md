@@ -7,6 +7,7 @@ This project focuses on forecasting Bitcoin prices using machine learning. By co
 - **GRU (Gated Recurrent Unit)** for long-term forecasts (30+ days)
 
 The project is implemented in Python and designed to evolve into a user-facing application using Streamlit.
+🌐 [Read Full Project Description on My Portfolio](https://marc-seger.github.io/portfolio-website/bitcoin-price-predictor.html)
 
 ---
 
