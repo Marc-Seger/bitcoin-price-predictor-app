@@ -28,7 +28,7 @@ if st.button("🔒 Predict"):
 st.markdown("---")
 
 # === Navigation Link ===
-st.markdown("🔄 Want to analyze trends instead? Go to the [Bitcoin Market Dashboard](https://marc-seger-bitcoin-market-dashboard.streamlit.app/)")
+st.markdown("🔄 Want to analyze trends instead? Go to the [Bitcoin Market Dashboard](https://bitcoin-market-dashboard.streamlit.app/)")
 
 # === Footer ===
 st.markdown("---")
