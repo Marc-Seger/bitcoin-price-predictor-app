@@ -9,12 +9,6 @@ st.set_page_config(
     layout="centered"
 )
 
-st.markdown("""
-<div style='margin-bottom:1rem'>
-    <a href='https://bitcoin-market-dashboard.streamlit.app' style='text-decoration:none; font-weight:500;'>⬅️ Back to Dashboard</a>
-</div>
-""", unsafe_allow_html=True)
-
 # === Title ===
 st.title("🤖 Bitcoin Price Predictor")
 st.markdown("An interactive tool to forecast future Bitcoin prices based on historical and market data. *(Work in Progress)*")
